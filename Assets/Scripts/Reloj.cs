@@ -20,7 +20,7 @@ public class Reloj : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        tiempoInicial = 360;
+        tiempoInicial = 0;
         //Escala de Tiempo Original
         escalaDeTiempoInicial = escalaDeTiempo;
         myText = GetComponent<Text>();
@@ -32,7 +32,7 @@ public class Reloj : MonoBehaviour
     void Update()
     {
         TiempoFrameConTiempoScale = Time.deltaTime * escalaDeTiempo;
-        tiempoMostrarEnSegundos -= TiempoFrameConTiempoScale; //- para que cuente hacia atras
+        tiempoMostrarEnSegundos += TiempoFrameConTiempoScale; //- para que cuente hacia atras
         ActualizarReloj(tiempoMostrarEnSegundos);
     }
 
