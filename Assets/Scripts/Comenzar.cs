@@ -9,6 +9,11 @@ public class Comenzar : MonoBehaviour
     public Image PanelInstrucciones;
 
     // Start is called before the first frame update
+
+    void Awake()
+    {
+        Time.timeScale = 0;
+    }
     void Start()
     {
         
@@ -24,5 +29,6 @@ public class Comenzar : MonoBehaviour
     {
         PanelPuntuacion.gameObject.SetActive(true);
         PanelInstrucciones.gameObject.SetActive(false);
+        Time.timeScale = 1;
     }
 }

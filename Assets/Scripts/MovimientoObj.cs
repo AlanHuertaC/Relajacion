@@ -11,6 +11,8 @@ public class MovimientoObj : MonoBehaviour
     public int no_consecutivo_profundidad = 0;
     public int no_consecutivo_color = 0;
     public GameObject obj;
+
+    public float aumento;
     void Start()
     {
         
@@ -22,7 +24,7 @@ public class MovimientoObj : MonoBehaviour
         
     }
 
-    public void movimiento()
+    public void movimiento1()
     {
 
         int aleatorio = Random.Range(0, 5);
@@ -41,7 +43,7 @@ public class MovimientoObj : MonoBehaviour
         }
         no_consecutivo_profundidad = aleatorio_profundidad;
         //Debug.Log(aleatorio_profundidad);
-        //aleatorio_profundidad = 0; //sin generar un aleatorio de profundidad 
+        aleatorio_profundidad = 0; //sin generar un aleatorio de profundidad 
         /*Colores aleatorios*/
         Color[] Colores = { Color.red, Color.blue, new Color(0.8f, 0.1f,0.9f) };
         int aleatorio_color = Random.Range(0, 3);
@@ -75,5 +77,12 @@ public class MovimientoObj : MonoBehaviour
                 obj.GetComponent<MeshRenderer>().material.SetColor("_Color", Colores[aleatorio_color]);
                 break;
         }
+    }
+
+    public void movimiento2()
+    {
+        
+        obj.transform.position = new Vector3(0f + aumento, 3.3f, 5.4f);
+        aumento = aumento + 0.1f;
     }
 }
