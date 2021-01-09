@@ -20,8 +20,8 @@ public class Reloj : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        CameraSettings camera = GameObject.Find("LeftEye").GetComponent<CameraSettings>();
-        int tiempoBD = int.Parse(camera.tiempoBD);
+        BD bd = GameObject.Find("BD").GetComponent<BD>();
+        int tiempoBD = int.Parse(bd.tiempoBD);
         tiempoInicial = tiempoBD * 60; // minutos
         //Escala de Tiempo Original
         escalaDeTiempoInicial = escalaDeTiempo;

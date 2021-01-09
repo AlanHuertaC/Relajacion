@@ -11,9 +11,9 @@ public class Terminar : MonoBehaviour
     public Text Puntuacion;
     public Image PanelPuntuacion;
 
-    /*public Image PanelFinal;
+    public Image PanelFinal;
     public Text PuntuacionFinal;
-    public Text TiempoFinal;*/
+    public Text TiempoFinal;
 
     /*Panel Instrucciones*/
     public Image PanelInstrucciones;
@@ -40,10 +40,10 @@ public class Terminar : MonoBehaviour
 
     public void terminar(){
         Time.timeScale = 0; // Se detiene el tiempo
-        ConsultasSQL sql = new ConsultasSQL(); 
-        CameraSettings camera = GameObject.Find("LeftEye").GetComponent<CameraSettings>();
-        string paciente = camera.idPaciente;
-        string especialista = camera.idEspecialista;
+        ConsultasSQL sql = new ConsultasSQL();
+        BD bd = GameObject.Find("BD").GetComponent<BD>();
+        string paciente = bd.idPaciente;
+        string especialista = bd.idEspecialista;
         //string duracion = Tiempo.text.ToString();
         /*duracion*/
         Reloj reloj = GameObject.Find("Reloj").GetComponent<Reloj>();
@@ -60,33 +60,37 @@ public class Terminar : MonoBehaviour
         Debug.Log(duracion);
         /**/
         string puntuacion = Puntuacion.text.ToString();
-        sql.insertTratamiento("Calentamiento",puntuacion,duracion,paciente,especialista);
+
+        reloj.tiempoMostrarEnSegundos = reloj.tiempoInicial;
+        Time.timeScale = 0; // Se detiene el tiempo
+
+        sql.insertTratamiento("Relajación", puntuacion,duracion,paciente,especialista);
         
         /*Ocultar los tiempos y el canvas de puntuacion*/
-        TextoTiempo.gameObject.SetActive(false);
+        //TextoTiempo.gameObject.SetActive(false);
         //Tiempo.gameObject.SetActive(false);
-        Text t = Tiempo.GetComponent<Text>();
-        t.color = new Color(1f, 1f, 1f, 0f);
-        PanelPuntuacion.gameObject.SetActive(false);
+        //Text t = Tiempo.GetComponent<Text>();
+        //t.color = new Color(1f, 1f, 1f, 0f);
+        //PanelPuntuacion.gameObject.SetActive(false);
         /*Ocultar figuras para que no se pueda interactuar*/
         /*obj1.gameObject.SetActive(false);
         obj2.gameObject.SetActive(false);
         obj3.gameObject.SetActive(false);*/
 
         /*Poner el canvas con el puntaje y tiempo*/
-       /* PuntuacionFinal.text = "Obtuviste una puntuación de " + Puntuacion.text + " puntos"; 
+        PuntuacionFinal.text = "Obtuviste una puntuación de " + Puntuacion.text + " puntos"; 
         TiempoFinal.text = "Tu tiempo final fue de: " + duracion;
-        PanelFinal.gameObject.SetActive(true);*/
+        PanelFinal.gameObject.SetActive(true);
         
     }
 
     public void reiniciar(){
-        /*PanelFinal.gameObject.SetActive(false);
+        PanelFinal.gameObject.SetActive(false);
         /*obj1.gameObject.SetActive(true);
         obj2.gameObject.SetActive(true);*/
        /* obj3.gameObject.SetActive(true);
-        obj3.transform.position = new Vector3(-.8f, 1.5f, 4.21f);
-        PanelInstrucciones.gameObject.SetActive(true);*/
+        obj3.transform.position = new Vector3(-.8f, 1.5f, 4.21f);*/
+        PanelInstrucciones.gameObject.SetActive(true);
         Puntuacion.text = "0";
         
     }
@@ -94,9 +98,9 @@ public class Terminar : MonoBehaviour
     public void tiempoFinalizado()
     {
         ConsultasSQL sql = new ConsultasSQL();
-        CameraSettings camera = GameObject.Find("LeftEye").GetComponent<CameraSettings>();
-        string paciente = camera.idPaciente;
-        string especialista = camera.idEspecialista;
+        BD bd = GameObject.Find("BD").GetComponent<BD>();
+        string paciente = bd.idPaciente;
+        string especialista = bd.idEspecialista;
 
         Reloj reloj = GameObject.Find("Reloj").GetComponent<Reloj>();
         
@@ -115,13 +119,13 @@ public class Terminar : MonoBehaviour
         reloj.tiempoMostrarEnSegundos = reloj.tiempoInicial;
         Time.timeScale = 0; // Se detiene el tiempo
 
-        sql.insertTratamiento("Calentamiento", puntuacion, duracion, paciente, especialista);
+        sql.insertTratamiento("Relajación", puntuacion, duracion, paciente, especialista);
 
         /*Ocultar los tiempos y el canvas de puntuacion**/
-        TextoTiempo.gameObject.SetActive(false);
+        //TextoTiempo.gameObject.SetActive(false);
         //Tiempo.gameObject.SetActive(false);
-        Text t = Tiempo.GetComponent<Text>();
-        t.color = new Color(1f, 1f, 1f, 0f); // Truco para ocultar el tiempo sin que truene el programa :'v
+        //Text t = Tiempo.GetComponent<Text>();
+        //t.color = new Color(1f, 1f, 1f, 0f); // Truco para ocultar el tiempo sin que truene el programa :'v
 
         //PanelPuntuacion.gameObject.SetActive(false);
         /*Ocultar figuras para que no se pueda interactuar*/
@@ -130,9 +134,9 @@ public class Terminar : MonoBehaviour
         obj3.gameObject.SetActive(false);*/
 
         /*Poner el canvas con el puntaje y tiempo*/
-        /*PuntuacionFinal.text = "Obtuviste una puntuación de " + Puntuacion.text + " puntos";
+        PuntuacionFinal.text = "Obtuviste una puntuación de " + Puntuacion.text + " puntos";
         TiempoFinal.text = "Tu tiempo final fue de: " + duracion;
-        PanelFinal.gameObject.SetActive(true);*/
-        PanelPuntuacion.gameObject.SetActive(false);
+        PanelFinal.gameObject.SetActive(true);
+        //PanelPuntuacion.gameObject.SetActive(false);
     }
 }
