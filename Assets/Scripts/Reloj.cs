@@ -20,7 +20,9 @@ public class Reloj : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        tiempoInicial = 0;
+        BD bd = GameObject.Find("BD").GetComponent<BD>();
+        int tiempoBD = int.Parse(bd.tiempoBD);
+        tiempoInicial = tiempoBD * 60; // minutos
         //Escala de Tiempo Original
         escalaDeTiempoInicial = escalaDeTiempo;
         myText = GetComponent<Text>();
@@ -32,7 +34,7 @@ public class Reloj : MonoBehaviour
     void Update()
     {
         TiempoFrameConTiempoScale = Time.deltaTime * escalaDeTiempo;
-        tiempoMostrarEnSegundos += TiempoFrameConTiempoScale; //- para que cuente hacia atras
+        tiempoMostrarEnSegundos -= TiempoFrameConTiempoScale; //- para que cuente hacia atras
         ActualizarReloj(tiempoMostrarEnSegundos);
     }
 
@@ -42,16 +44,16 @@ public class Reloj : MonoBehaviour
         //{
             int minutos = 0;
             int segundos = 0;
-            // int milisegundos = 0;
+            int milisegundos = 0;
             string textoDelReloj;
 
             if (tiempoEnSegundos < 0) tiempoEnSegundos = 0;
 
             minutos = (int)tiempoEnSegundos / 60;
             segundos = (int)tiempoEnSegundos % 60;
-            //milisegundos = (int)tiempoEnSegundos / 1000;
+            milisegundos = (int)((tiempoEnSegundos * 10) % 10);
 
-            textoDelReloj = minutos.ToString("00") + ":" + segundos.ToString("00"); //+ ":" + milisegundos.ToString("00");
+            textoDelReloj = minutos.ToString("00") + ":" + segundos.ToString("00") + "." + milisegundos.ToString("0");
             myText.text = textoDelReloj;
         //}
     }
